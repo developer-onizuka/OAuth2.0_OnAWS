@@ -28,8 +28,8 @@ By the way, there are four types of grant in OAuth2.0.
 But I take **Client credentials** as an example because it is used in Azure's Metadata Service for Managed ID and easy for me to explain.
 
 # **(2) Between cloud resources** <br>
-You can use Azure's Metadata Service for Managed ID while the access is between cloud resouces.<br>
-Azure's Managed ID uses OAuth2.0 Client credentials technology as far as I know. The ClientID in metadata service is already registered by system administrator of the Azure subscription. No ClientIDs is written in the App as you can see below: <br>
+You can use AWS Metadata Service for IAM role while the access is between cloud resouces.<br>
+AWS's IAM role uses OAuth2.0 Client credentials technology as far as I know. The ClientID in metadata service is already registered by system administrator of the AWS Account. No ClientIDs is written in the App as you can see below: <br>
 
 ![metadata_service_AWS.png](https://github.com/developer-onizuka/Diagrams/blob/main/OAuth2.0_Authorization/metadata_service_AWS.drawio.png)
 
@@ -38,7 +38,8 @@ One day, a lazy student in a dormitory uses a housekeeping service to have them 
 But dormitory manager does not have any tokens in person, neither. Please also note the dormitory manager does not have any knowledges about washing machines. So the dormitory manager asks it for the token manager who manages and maintains washing machines in the dormitory.<br>
 Finally, the service guy gets a token and can put it into a washing machine so that he can wash his costomer's dirty clothes. But please note the service guy can not do anything besides using washing machines. This is because the service guy does not have any tokens to use dormitorie's property such as kitchen or bathroom.
 
-![dormitory.drawio.png](https://github.com/developer-onizuka/OAuth2.0_Authorization/blob/main/dormitory.drawio.png)
+![laundryService_SSO_AWS.drawio.png](https://github.com/developer-onizuka/Diagrams/blob/main/OAuth2.0_Authorization/laundryService_SSO_AWS.drawio.png)
+
 
 # **(3) From public to cloud resources via Azure Service Principal (Custome Identity Broker Application For Enterprise)** <br>
 According to the table in Section 1, OAuth2.0 is the best practice for the accesss from public to cloud resources, such as some specific SaaS solutions. 
