@@ -25,7 +25,7 @@ By the way, there are four types of grant in OAuth2.0.
 - Resource owner password credentials 
 - Client credentials
 ```
-But I take **Client credentials** as an example because it is used in Azure's Metadata Service for Managed ID and easy for me to explain.
+But I take **Client credentials** as an example because it is easy for me to explain.
 
 # **(2) Between cloud resources** <br>
 You can use AWS Metadata Service for IAM role while the access is between cloud resouces.<br>
