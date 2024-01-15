@@ -38,7 +38,7 @@ One day, a lazy student in a dormitory uses a housekeeping service to have them 
 But dormitory manager does not have any tokens in person, neither. Please also note the dormitory manager does not have any knowledges about washing machines. So the dormitory manager asks it for the token manager who manages and maintains washing machines in the dormitory.<br>
 Finally, the service guy gets a token and can put it into a washing machine so that he can wash his costomer's dirty clothes. But please note the service guy can not do anything besides using washing machines. This is because the service guy does not have any tokens to use dormitorie's property such as kitchen or bathroom.
 
-![laundryService_SSO_AWS.drawio.png](https://github.com/developer-onizuka/Diagrams/blob/main/OAuth2.0_Authorization/laundryService_SSO_AWS.drawio.png)
+![dormitory_AWS.drawio.png](https://github.com/developer-onizuka/Diagrams/blob/main/OAuth2.0_Authorization/dormitory_AWS.drawio.png)
 
 
 # **(3) From public to cloud resources via AWS Cognito** <br>
