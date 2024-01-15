@@ -31,7 +31,7 @@ But I take **Client credentials** as an example because it is used in Azure's Me
 You can use Azure's Metadata Service for Managed ID while the access is between cloud resouces.<br>
 Azure's Managed ID uses OAuth2.0 Client credentials technology as far as I know. The ClientID in metadata service is already registered by system administrator of the Azure subscription. No ClientIDs is written in the App as you can see below: <br>
 
-![metadata_service_Azure_ManagedID.drawio.png](https://github.com/developer-onizuka/OAuth2.0_Authorization/blob/main/metadata_service_AWS.drawio.png)
+![metadata_service_AWS.png](https://github.com/developer-onizuka/Diagrams/blob/main/OAuth2.0_Authorization/metadata_service_AWS.drawio.png)
 
 # **(ex) Laundry service in dormitory** <br>
 One day, a lazy student in a dormitory uses a housekeeping service to have them wash his dirty clothes. As you can imagine, the service guy does not have any permissions to use washing machine in the dormitory. So the service guy needs to ask dormitory manager a token.<br>
