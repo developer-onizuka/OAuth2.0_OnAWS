@@ -41,22 +41,7 @@ Finally, the service guy gets a token and can put it into a washing machine so t
 ![laundryService_SSO_AWS.drawio.png](https://github.com/developer-onizuka/Diagrams/blob/main/OAuth2.0_Authorization/laundryService_SSO_AWS.drawio.png)
 
 
-# **(3) From public to cloud resources via Azure Service Principal (Custome Identity Broker Application For Enterprise)** <br>
-According to the table in Section 1, OAuth2.0 is the best practice for the accesss from public to cloud resources, such as some specific SaaS solutions. 
-But, you can also use **Service Principal** in Azure AD instead of Managed ID used as Azure's Metadata Service.<br>
-I believe that ClientID should be managed in some reliable Database systems getting along with your App.
-
-![OAuth2.0_ClientCredentialsFlow.drawio.png](https://github.com/developer-onizuka/OAuth2.0_Authorization/blob/main/OAuth2.0_ClientCredentialsFlow.drawio.png)
-
-# **(ex) Laundry service in your home** <br>
-The lazy student decided to live outside dormitory independently. He starts to subscribe two services.<br> One is for housekeeping and the other is for laundry service because he does not have any washing machines in his house. The housekeeping service can federate with some major subscriptions such as sharing washing machines, cars and buying meats and milk at grocery online store. The laundry service can provide subscribers with a token to allow them to use washing machines. <br>
-One day, he uses the housekeeping service to have them wash his dirty clothes again. He wants them to use the laundry service instead of himself. What he wants to do is **"Single Sign On"** between housekeeping service and laundry service. 
-
-![laundryService_SSO.drawio.png](https://github.com/developer-onizuka/OAuth2.0_Authorization/blob/main/laundryService_SSO.drawio.png) <br>
-
-The picture above is based on **OAuth2.0 Client credentials** flow. But if "Authorization code" is used above, **the student will be redirected to login site of the coin laundry service** and asked grant for **the federation the coin laundry service provider with the housekeeping service**.
-
-# **(4) From public to cloud resources via AWS Cognito** <br>
+# **(3) From public to cloud resources via AWS Cognito** <br>
 You can utilize Cognito User Pools and Identity Pools instead of using Custom Identity Broker Application above.<br> 
 Cognito Identity Pools issues a token for each user as a temporary credential. There are two types of managed identities: Authenticated users and Unauthenticated users (guest users). <br>
 The Authenticated and unauthenticated user would be given temporary credential (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY and AWS_SESSION_TOKEN) by STS through **AssumeRoleWithWebIdentity** API request with Role ARN, so that the Federated user can get the Role A and an UserID which does not have any roles (and the unauthenticated user can get Role B and an UserID which does not have any roles). <br>
@@ -69,7 +54,7 @@ In [3. Temporary security credentials in IAM](https://github.com/developer-onizu
 
 ![AWS_Cognito_unauthenticated.drawio.png](https://github.com/developer-onizuka/OAuth2.0_Authorization/blob/main/AWS_Cognito_unauthenticated.drawio.png)
 
-# **(5) From onprem with to cloud resources via AWS Directory Service**
+# **(4) From onprem with to cloud resources via AWS Directory Service**
 AD Connector is designed to give you an easy way to establish a trusted relationship between your Active Directory and AWS. When AD Connector is configured, the trust allows you to:<br>
 
 - Sign in to AWS applications such as Amazon WorkSpaces, Amazon WorkDocs, and Amazon WorkMail by using your Active Directory credentials.
@@ -84,7 +69,7 @@ AD Connector cannot be used with your custom applications, as it is only used fo
 
 Armed with information above, you can create a trust between your Active Directory and AWS. In addition, you now have a quick and simple way to enable single sign-on without needing to replicate identities or deploy additional infrastructure on premises.<br>
 
-# **(6) From Onprem with Hashi-Corp Vault to cloud resources via public IdP's Authentication** <br>
+# **(5) From Onprem with Hashi-Corp Vault to cloud resources via public IdP's Authentication** <br>
 Metadata service is one of dedicated services in Azure or AWS which you can not use in on-premises environment. However, you can easily create a kind of solutions like Metadata service even in on-premises, by using OAuth2.0 with the Hashi-Corp Vault.<br>
 In addition, you can use Intel SGX to protect the Key in memory to prevent from compromising caused by some OS vulnerability issues.
 
@@ -116,9 +101,9 @@ As a result, temporary credentials have the following advantages over long-term 
 
 # 4. Summary
 - The point is how we should manage a ClientID which is a kind of secrets to get a Token of cloud resouces thru OAuth2.0. <br>
-- The Managed ID is one of implementation using OAuth2.0 and it can be used in Azure while IAM role is used in AWS. <br>
-- As it turns out, Managed ID in Azure is a kind of system to manage the ClientID securely thru REST API, I believe. <br>
-- In the on-prem enviornment, the ClientID would be managed in some reliable Database systems getting along with your App instead of Managed ID in cloud. <br>
+- AWS IAM role is one of implementation using OAuth2.0. <br>
+- As it turns out, AWS IAM role is a kind of system to manage the ClientID securely thru REST API, I believe. <br>
+- In the on-prem enviornment, the ClientID would be managed in some reliable Database systems getting along with your App instead of AWS IAM role in cloud. <br>
 
 |  | to On-prem's resource | to Cloud's resource |
 | --- | --- | --- |
