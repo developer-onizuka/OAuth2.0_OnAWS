@@ -12,8 +12,7 @@ I believe that the **Signed URL in AWS CloudFront** is one of the solutions for 
 | #3 | Access Token<br>(OAuth2.0) | - Doesn't need to use secrets such as Access Keys or connection strings in code. | - Difficult to understand how it works. <br> - You need to write a code with some SDKs to get a token from the authorization server's token endpoint. <br> - Default token lifetime ranges between 60-90 minutes. Needs logics toward expiration (But it is not necessary on Managed ID). | - Zero Trust <br> - SaaS subscripution for an unspecified number of customers in general. <br> - [Service principal](https://github.com/developer-onizuka/OAuth2.0_AzureAD#oauth20_azuread) in Azure App registration <br> - Cognito User Pools / Cognito User Identity Pools in AWS|
 
 
-# 2. How OAuth2.0 works
-# **(1) Goals with OAuth2.0** 
+# 2. Goals with Access Token (OAuth2.0)
 - App should get a Token from the Token Endpoint of OAuth2.0's Authorization server to access some specific resouces in the cloud.<br>
 - In order to get a Token, App has to send the ClientID (and its Client Secret) to the Token Endpoint of OAuth2.0's Authorization server.<br>
 - No ClientIDs should be written in the App because malicious hacker can get it easily and the resouces might have unexpected access from someone.<br>
@@ -27,7 +26,8 @@ By the way, there are four types of grant in OAuth2.0.
 ```
 But I take **Client credentials** as an example because it is easy for me to explain.
 
-# **(2) Between cloud resources** <br>
+# 2-1. How Access Token works (= OAuth2.0)
+# **(1) Between cloud resources** <br>
 You can use AWS Metadata Service for IAM role while the access is between cloud resouces.<br>
 AWS's IAM role uses OAuth2.0 Client credentials technology as far as I know. The ClientID in metadata service is already registered by system administrator of the AWS Account. No ClientIDs is written in the App as you can see below: <br>
 
@@ -41,7 +41,7 @@ Finally, the service guy gets a token and can put it into a washing machine so t
 ![dormitory_AWS.drawio.png](https://github.com/developer-onizuka/Diagrams/blob/main/OAuth2.0_Authorization/dormitory_AWS.drawio.png)
 
 
-# **(3) From public to cloud resources via AWS Cognito** <br>
+# **(2) From public to cloud resources via AWS Cognito** <br>
 You can utilize Cognito User Pools and Identity Pools instead of using Custom Identity Broker Application above.<br> 
 Cognito Identity Pools issues a token for each user as a temporary credential. There are two types of managed identities: Authenticated users and Unauthenticated users (guest users). <br>
 The Authenticated and unauthenticated user would be given temporary credential (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY and AWS_SESSION_TOKEN) by STS through **AssumeRoleWithWebIdentity** API request with Role ARN, so that the Federated user can get the Role A and an UserID which does not have any roles (and the unauthenticated user can get Role B and an UserID which does not have any roles). <br>
@@ -54,13 +54,13 @@ In [3. Temporary security credentials in IAM](https://github.com/developer-onizu
 
 ![AWS_Cognito_unauthenticated.drawio.png](https://github.com/developer-onizuka/OAuth2.0_Authorization/blob/main/AWS_Cognito_unauthenticated.drawio.png)
 
-# **(4) From Onprem with Hashi-Corp Vault to cloud resources via public IdP's Authentication** <br>
+# **(3) From Onprem with Hashi-Corp Vault to cloud resources via public IdP's Authentication** <br>
 Metadata service is one of dedicated services in AWS EC2 which you can not use in on-premises environment. However, you can easily create a kind of solutions like Metadata service even in on-premises, by using OAuth2.0 with the Hashi-Corp Vault.<br>
 In addition, you can use Intel SGX to protect the Key in memory to prevent from compromising caused by some OS vulnerability issues.
 
 ![AWS_Cognito_with_Vault.drawio.png](https://github.com/developer-onizuka/Diagrams/blob/main/OAuth2.0_Authorization/AWS_Cognito_with_Vault.drawio.png)
 
-# **(Appendix) From onprem to cloud resources via AWS Directory Service**
+# **(Tips) From onprem to cloud resources via AWS Directory Service**
 AD Connector is designed to give you an easy way to establish a trusted relationship between your Active Directory and AWS. When AD Connector is configured, the trust allows you to:<br>
 
 - Sign in to AWS applications such as Amazon WorkSpaces, Amazon WorkDocs, and Amazon WorkMail by using your Active Directory credentials.
@@ -103,7 +103,7 @@ As a result, temporary credentials have the following advantages over long-term 
 
 |  | to On-prem's resource | to Cloud's resource |
 | --- | --- | --- |
-| **from on-premises** <br> (within the organization)| Connection String | Connection String |
+| **from on-premises** <br> (within the organization)| Connection String | - Connection String <br> - Temporary security credentials in IAM |
 | **from the resources in same cloud subscription** <br> (within the organization)| N/A | OAuth2.0 (Cloud Service Providers provide you with services below) <br> - **AWS IAM role** <br> - Azure ManagedID |
 | **from different cloud subscriptions** <br> (within the organization)| Connection String | - [Cross Account Access between AWS accounts](https://n2ws.com/blog/aws-cloud/managing-aws-accounts-cross-account-iam-roles) (but shoud be trusted between AWS accounts) <br> - [Access with Managed ID between Azure subscriptions which each belongs to the same Azure AD tenant.](https://stackoverflow.com/questions/59069065/can-managed-identity-of-a-azure-function-have-access-across-multiple-subscriptio) (But [Managed IDs don't currently support cross-tenant scenarios.](https://learn.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/managed-identities-faq#can-i-use-a-managed-identity-to-access-a-resource-in-a-different-directorytenant)) <br> - [Azure AD External Identities](https://www.youtube.com/watch?v=3Pi_-pHIT_4) for B2B connection. Cross-tenant access setting manages Inbound and Outband traffics for user principals (not for Managed ID principals).<br> - [Authentication flow for external Azure AD users](https://learn.microsoft.com/en-us/azure/active-directory/external-identities/authentication-conditional-access): <br> The most important step is "to see if the resource tenant trusts MFA and device claims (device compliance, hybrid Azure AD joined status) from external tenant's users." <br> If it is not, then "B2B collaboration users are prompted for MFA, which they need to satisfy in the resource tenant."|
 | **from anonymous public resources thru RESTful API / GraphQL API** <br> (outside the organization)| OAuth2.0 (Must make the scheme on your own) | OAuth2.0 (Cloud Service Providers provide you services below) <br> - **AWS Cognito User Pools / AWS Cognito Identity Pools** <br> - Azure Service Principal |
