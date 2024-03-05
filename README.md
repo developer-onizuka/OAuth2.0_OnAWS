@@ -54,7 +54,13 @@ In [3. Temporary security credentials in IAM](https://github.com/developer-onizu
 
 ![AWS_Cognito_unauthenticated.drawio.png](https://github.com/developer-onizuka/OAuth2.0_Authorization/blob/main/AWS_Cognito_unauthenticated.drawio.png)
 
-# **(4) From onprem with to cloud resources via AWS Directory Service**
+# **(4) From Onprem with Hashi-Corp Vault to cloud resources via public IdP's Authentication** <br>
+Metadata service is one of dedicated services in AWS EC2 which you can not use in on-premises environment. However, you can easily create a kind of solutions like Metadata service even in on-premises, by using OAuth2.0 with the Hashi-Corp Vault.<br>
+In addition, you can use Intel SGX to protect the Key in memory to prevent from compromising caused by some OS vulnerability issues.
+
+![AWS_Cognito_with_Vault.drawio.png](https://github.com/developer-onizuka/Diagrams/blob/main/OAuth2.0_Authorization/AWS_Cognito_with_Vault.drawio.png)
+
+# **(5) From onprem to cloud resources via AWS Directory Service**
 AD Connector is designed to give you an easy way to establish a trusted relationship between your Active Directory and AWS. When AD Connector is configured, the trust allows you to:<br>
 
 - Sign in to AWS applications such as Amazon WorkSpaces, Amazon WorkDocs, and Amazon WorkMail by using your Active Directory credentials.
@@ -68,12 +74,6 @@ AD Connector cannot be used with your custom applications, as it is only used fo
 ![AWSDirectoryService.png](https://d2908q01vomqb2.cloudfront.net/22d200f8670dbdb3e253a90eee5098477c95c23d/2023/08/15/img3.png)
 
 Armed with information above, you can create a trust between your Active Directory and AWS. In addition, you now have a quick and simple way to enable single sign-on without needing to replicate identities or deploy additional infrastructure on premises.<br>
-
-# **(5) From Onprem with Hashi-Corp Vault to cloud resources via public IdP's Authentication** <br>
-Metadata service is one of dedicated services in AWS EC2 which you can not use in on-premises environment. However, you can easily create a kind of solutions like Metadata service even in on-premises, by using OAuth2.0 with the Hashi-Corp Vault.<br>
-In addition, you can use Intel SGX to protect the Key in memory to prevent from compromising caused by some OS vulnerability issues.
-
-![AWS_Cognito_with_Vault.drawio.png](https://github.com/developer-onizuka/Diagrams/blob/main/OAuth2.0_Authorization/AWS_Cognito_with_Vault.drawio.png)
 
 # 3. Temporary security credentials in IAM
 You can use the AWS Security Token Service (AWS STS) to create and provide trusted users with temporary security credentials that can control access to your AWS resources. Temporary security credentials work almost identically to long-term access key credentials, with the following differences:
