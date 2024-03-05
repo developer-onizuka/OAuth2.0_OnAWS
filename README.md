@@ -71,10 +71,6 @@ AD Connector cannot be used with your custom applications, as it is only used fo
 
 > https://aws.amazon.com/jp/blogs/security/how-to-connect-your-on-premises-active-directory-to-aws-using-ad-connector/
 
-![AWSDirectoryService.png](https://d2908q01vomqb2.cloudfront.net/22d200f8670dbdb3e253a90eee5098477c95c23d/2023/08/15/img3.png)
-
-Armed with information above, you can create a trust between your Active Directory and AWS. In addition, you now have a quick and simple way to enable single sign-on without needing to replicate identities or deploy additional infrastructure on premises.<br>
-
 # 3. Temporary security credentials in IAM
 You can use the AWS Security Token Service (AWS STS) to create and provide trusted users with temporary security credentials that can control access to your AWS resources. Temporary security credentials work almost identically to long-term access key credentials, with the following differences:
 
