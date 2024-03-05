@@ -60,7 +60,7 @@ In addition, you can use Intel SGX to protect the Key in memory to prevent from 
 
 ![AWS_Cognito_with_Vault.drawio.png](https://github.com/developer-onizuka/Diagrams/blob/main/OAuth2.0_Authorization/AWS_Cognito_with_Vault.drawio.png)
 
-# **(5) From onprem to cloud resources via AWS Directory Service**
+# **(Appendix) From onprem to cloud resources via AWS Directory Service**
 AD Connector is designed to give you an easy way to establish a trusted relationship between your Active Directory and AWS. When AD Connector is configured, the trust allows you to:<br>
 
 - Sign in to AWS applications such as Amazon WorkSpaces, Amazon WorkDocs, and Amazon WorkMail by using your Active Directory credentials.
