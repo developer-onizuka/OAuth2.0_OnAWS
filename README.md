@@ -26,7 +26,7 @@ By the way, there are four types of grant in OAuth2.0.
 ```
 But I take **Client credentials** as an example because it is easy for me to explain.
 
-# 2-1. How Access Token works (= OAuth2.0)
+# 2-1. How Access Token works (OAuth2.0)
 # **(1) Between cloud resources** <br>
 You can use AWS Metadata Service for IAM role while the access is between cloud resouces.<br>
 AWS's IAM role uses OAuth2.0 Client credentials technology as far as I know. The ClientID in metadata service is already registered by system administrator of the AWS Account. No ClientIDs is written in the App as you can see below: <br>
