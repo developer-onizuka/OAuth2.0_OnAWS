@@ -101,6 +101,7 @@ As a result, temporary credentials have the following advantages over long-term 
 - AWS IAM role is one of implementation using OAuth2.0. <br>
 - As it turns out, AWS IAM role is a kind of system to manage the ClientID securely thru REST API, I believe. <br>
 - In the on-prem enviornment, the ClientID would be managed in some reliable Database systems getting along with your App instead of AWS IAM role in cloud. <br>
+- Can easily create a kind of solutions like Metadata service even in on-premises, by using OAuth2.0 with the Hashi-Corp Vault. <br>
 
 |  | to On-prem's resource | to Cloud's resource |
 | --- | --- | --- |
